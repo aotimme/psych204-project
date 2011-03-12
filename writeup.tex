@@ -1,0 +1,191 @@
+\documentclass{article} % For LaTeX2e
+\usepackage{nips11submit_e,times}
+%\documentstyle[nips10submit_09,times,art10]{article} % For LaTeX 2.09
+
+
+\title{Perceptual Multistability in a Temporal Illusion}
+
+
+\author{
+Joseph Marrama \\
+Department of Computer Science\\
+Stanford University\\
+\texttt{jmarrama@stanford.edu} \\
+\And
+Alden Timme \\
+Department of Ball Sucking \\
+Stanford University \\
+\texttt{aotimme@stanford.edu} \\
+}
+
+% The \author macro works with any number of authors. There are two commands
+% used to separate the names and addresses of multiple authors: \And and \AND.
+%
+% Using \And between authors leaves it to \LaTeX{} to determine where to break
+% the lines. Using \AND forces a linebreak at that point. So, if \LaTeX{}
+% puts 3 of 4 authors names on the first line, and the last on the second
+% line, try using \AND instead of \And before the third author name.
+
+\newcommand{\fix}{\marginpar{FIX}}
+\newcommand{\new}{\marginpar{NEW}}
+
+\nipsfinalcopy % Uncomment for camera-ready version
+
+\begin{document}
+
+
+\maketitle
+
+\begin{abstract}
+In this project, we model the cognitive conception of the reception of a visual field. Our model is a generative Bayesian one in which our uppermost variable represents the viewer’s conception of the visual field – i.e. the background structure of what the viewer sees. Rather than seeing the visual field as a sum of components, the model attempts to express the cognitive phenomenon of interpreting a visual stimulus as a whole cognitive concept. In an illusion, for example, we see one set of components which comprise the entire visual field, but this same set of components can yield multiple interpretations. Viewing this interpretive practice as a Bayesian model, we place the interpretation of the scene at the first layer in the hierarchy. This interpretation then provides a probability distribution over the variables at the second layer, which correspond to the perceived characteristics of the observed components that make up the visual stimulus. Finally, the set of all possible visual stimuli make up the third and final layer.
+\end{abstract}
+
+\section{Perceptual Multistability}
+Hi 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\newpage
+
+COOL \LaTeXe STUFF!!! alright! LOL?
+
+\subsection{Footnotes}
+
+Indicate footnotes with a number\footnote{Sample of the first footnote} in the
+text. Place the footnotes at the bottom of the page on which they appear.
+Precede the footnote with a horizontal rule of 2~inches
+(12~picas).\footnote{Sample of the second footnote}
+
+\subsection{Figures}
+
+All artwork must be neat, clean, and legible. Lines should be dark
+enough for purposes of reproduction; art work should not be
+hand-drawn. The figure number and caption always appear after the
+figure. Place one line space before the figure caption, and one line
+space after the figure. The figure caption is lower case (except for
+first word and proper nouns); figures are numbered consecutively.
+
+Make sure the figure caption does not get separated from the figure.
+Leave sufficient space to avoid splitting the figure and figure caption.
+
+You may use color figures. 
+However, it is best for the
+figure captions and the paper body to make sense if the paper is printed
+either in black/white or in color.
+\begin{figure}[h]
+\begin{center}
+%\framebox[4.0in]{$\;$}
+\fbox{\rule[-.5cm]{0cm}{4cm} \rule[-.5cm]{4cm}{0cm}}
+\end{center}
+\caption{Sample figure caption.}
+\end{figure}
+
+\subsection{Tables}
+
+All tables must be centered, neat, clean and legible. Do not use hand-drawn
+tables. The table number and title always appear before the table. See
+Table~\ref{sample-table}.
+
+Place one line space before the table title, one line space after the table
+title, and one line space after the table. The table title must be lower case
+(except for first word and proper nouns); tables are numbered consecutively.
+
+\begin{table}[t]
+\caption{Sample table title}
+\label{sample-table}
+\begin{center}
+\begin{tabular}{ll}
+\multicolumn{1}{c}{\bf PART}  &\multicolumn{1}{c}{\bf DESCRIPTION}
+\\ \hline \\
+Dendrite         &Input terminal \\
+Axon             &Output terminal \\
+Soma             &Cell body (contains cell nucleus) \\
+\end{tabular}
+\end{center}
+\end{table}
+
+LaTeX users:
+
+\begin{itemize}
+
+\item Consider directly generating PDF files using \verb+pdflatex+
+(especially if you are a MiKTeX user). 
+PDF figures must be substituted for EPS figures, however.
+
+\item Otherwise, please generate your PostScript and PDF files with the following commands:
+\begin{verbatim} 
+dvips mypaper.dvi -t letter -Ppdf -G0 -o mypaper.ps
+ps2pdf mypaper.ps mypaper.pdf
+\end{verbatim}
+
+Check that the PDF files only contains Type 1 fonts. 
+%For the final version, please send us both the Postscript file and
+%the PDF file. 
+
+\item xfig "patterned" shapes are implemented with 
+bitmap fonts.  Use "solid" shapes instead. 
+\item The \verb+\bbold+ package almost always uses bitmap
+fonts.  You can try the equivalent AMS Fonts with command
+\begin{verbatim}
+\usepackage[psamsfonts]{amssymb}
+\end{verbatim}
+ or use the following workaround for reals, natural and complex: 
+\begin{verbatim}
+\newcommand{\RR}{I\!\!R} %real numbers
+\newcommand{\Nat}{I\!\!N} %natural numbers 
+\newcommand{\CC}{I\!\!\!\!C} %complex numbers
+\end{verbatim}
+
+\item Sometimes the problematic fonts are used in figures
+included in LaTeX files. The ghostscript program \verb+eps2eps+ is the simplest
+way to clean such figures. For black and white figures, slightly better
+results can be achieved with program \verb+potrace+.
+\end{itemize}
+
+\subsubsection*{Acknowledgments}
+
+Use unnumbered third level headings for the acknowledgments. All
+acknowledgments go at the end of the paper. Do not include 
+acknowledgments in the anonymized submission, only in the 
+final paper. 
+
+\subsubsection*{References}
+
+References follow the acknowledgments. Use unnumbered third level heading for
+the references. Any choice of citation style is acceptable as long as you are
+consistent. It is permissible to reduce the font size to `small' (9-point) 
+when listing the references. {\bf Remember that this year you can use
+a ninth page as long as it contains \emph{only} cited references.}
+
+\small{
+[1] Alexander, J.A. \& Mozer, M.C. (1995) Template-based algorithms
+for connectionist rule extraction. In G. Tesauro, D. S. Touretzky
+and T.K. Leen (eds.), {\it Advances in Neural Information Processing
+Systems 7}, pp. 609-616. Cambridge, MA: MIT Press.
+
+[2] Bower, J.M. \& Beeman, D. (1995) {\it The Book of GENESIS: Exploring
+Realistic Neural Models with the GEneral NEural SImulation System.}
+New York: TELOS/Springer-Verlag.
+
+[3] Hasselmo, M.E., Schnell, E. \& Barkai, E. (1995) Dynamics of learning
+and recall at excitatory recurrent synapses and cholinergic modulation
+in rat hippocampal region CA3. {\it Journal of Neuroscience}
+{\bf 15}(7):5249-5262.
+}
+
+\end{document}
