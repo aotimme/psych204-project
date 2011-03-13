@@ -3,7 +3,7 @@
 % store probabilities in a struct
 % noise parameter is epsilon
 
-epsilon = 0.1;
+epsilon = 0.1
 CPDs = [];
 %helpers:
 ep01 = [epsilon (1-epsilon)];
@@ -108,11 +108,16 @@ end
 
 %now, GIBBS SAMPLE OMG!!!!!!!!!!
 numGibbsIters = 100000;
+burnInTime = 10000;
 percepts = zeros(1, numGibbsIters);
 lastStateSampled = 1;
 
-for g=1:numGibbsIters
-       
+for g=1:(numGibbsIters + burnInTime)
+    
+    if(mod(g,10000) == 0)
+        fprintf('on %d iteration of gibbs\n', g);
+    end
+    
     %choose a state at random to sample
     toSample = ceil(rand(1,1)*5);
     if(toSample >= lastStateSampled) toSample = toSample + 1; end
@@ -121,12 +126,46 @@ for g=1:numGibbsIters
     state(toSample) = find(mnrnd(1,Ps));
         
     
-    %sample states like 10 at a time? so we're not taking errry sample?
-    % or maybe not... shit i dunno
-    percepts(i) = state(1);
+    %wait until after burn in time to take samples
+    if(g > burnInTime)
+        percepts(g-burnInTime) = state(1);
+    end
     
     lastStateSampled = toSample;
 end
 
+%% analytics -- this could prolly be in a new script/file %%
+
+% show sampling's estimates of probability
+probEstimates = zeros(1,4);
+for i=1:4
+   probEstimates(i) = sum(percepts == i)/numGibbsIters; 
+end
+probEstimates
+
+%compute lengths for switching percepts
+numS = 0;
+lengthS = 0;
+lastSwitchPos = 1;
+switches = [];
+
+for i=1:(numGibbsIters-1)
+    if(percepts(i) ~= percepts(i+1))
+       
+        lengthThisSwitch = i+1-lastSwitchPos;
+        numS = numS + 1;
+        lastSwitchPos = i+1;
+        switches = [switches lengthThisSwitch];
+        
+    end
+end
+
+%plot switches prettily
+sumS = zeros(1,floor(numGibbsIters^.5) -1);
+for i=2:floor(numGibbsIters^.5)
+     sumS(i-1) = sum(switches==i);
+end
+
+plot(sumS(1:75));
 
 
