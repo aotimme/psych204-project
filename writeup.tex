@@ -46,8 +46,44 @@ Despite this simplifying assumption, our model is sophisticated enough to allow 
 %In this project, we model the cognitive conception of the reception of a visual field. Our model is a generative Bayesian one in which our uppermost variable represents the viewer’s conception of the visual field – i.e. the background structure of what the viewer sees. Rather than seeing the visual field as a sum of components, the model attempts to express the cognitive phenomenon of interpreting a visual stimulus as a whole cognitive concept. In an illusion, for example, we see one set of components which comprise the entire visual field, but this same set of components can yield multiple interpretations. Viewing this interpretive practice as a Bayesian model, we place the interpretation of the scene at the first layer in the hierarchy. This interpretation then provides a probability distribution over the variables at the second layer, which correspond to the perceived characteristics of the observed components that make up the visual stimulus. Finally, the set of all possible visual stimuli make up the third and final layer.
 \end{abstract}
 
+
+%so , how about an outline to start things off?
+%i guess we should sorta shape the writeup like a paper, except much more specific on the model and 
+%much shorter on the intro BS
+
+1. a short intro to perceptual multistability? introduce our illusion, etc....
+
+2. OUR MODEL - the basic structure, simplifying assumptions
+  question - include only the good gamma-distributed model or both??? which is 'more biologically plausable'?
+
+3. our results..... which mostly consist of switching times..... 
+  ALSO, model setting the clues in the illusion by setting certain illusion-type things to be constant...
+
+
+
 \section{Perceptual Multistability}
-What should be our first section? We should probably do the model first..... 
+%What should be our first section? We should probably do the model first..... 
+The mental phenomenon of perceptual multistability is a commonly modeled aspect of human cognition, because it is a well-defined and well-measured phenomenon, and it is fairly easy to model simple illusions that give rise to multistability.
+However, little research has gone into modeling perceptual multistability in complex illusions, such as those with a temporal component, multiple stable percepts, and complex structure. 
+In our project, we aim to model a high-dimensional temporal illusion with 6 stable percepts (which can be found at bit.ly/c3uGK2) and accurately reconstruct the dynamics of perceptual multistability as it naturally arises from the illusion using MCMC sampling. 
+
+
+\section{Our Model}
+%simplifying the illusion itself, our model, simplifying the featureset, then simplifying the illusion 
+Due to the high complexity of the illusion, a number of simplifying assumptions have to be made in order to construct a computationally tractable model. First, we decided to reduce the number of stable percepts in the illusion to 4 instead of 6, because the mirror images of the double helix and wave forms (see the illusion) are very similar, to the point where they are practically interchangable. They 
+
+
+
+\section{Results}
+%possibly a section of performance of the model?
+
+\subsection{Switching between percepts}
+
+
+\subsection{Visual Cues}
+
+
+\section{Discussion}
 
 
 

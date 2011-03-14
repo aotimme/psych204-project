@@ -97,18 +97,5 @@ OV.probs = [ep10 ep10 ep10 ep10 ep10 ep10... %hv = 0, cc = 0, #obj = 1
             ];
 CPDs = [CPDs OV];
 
-%% now finally initialize the state %%%%%%%%%%%%%%
 
-% initialize the state
-state = ones(1,6+numTopLayer);
-
-%sample top layer
-for i=1:numTopLayer
-    state(i) = find(mnrnd(1,CPDs(i).probs));
-end
-%sample 2nd level vars from the class
-for i=(numTopLayer+1):(length(CPDs)-1)
-    Ps = observeEvidence(CPDs, state, i);
-    state(i) = find(mnrnd(1,Ps));
-end
 
