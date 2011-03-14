@@ -13,9 +13,9 @@ Stanford University\\
 \texttt{jmarrama@stanford.edu} \\
 \And
 Alden Timme \\
-Department of Ball Sucking \\
+Department of Math and Computational Sciences \\
 Stanford University \\
-\texttt{aotimme@ballsuck.edu} \\
+\texttt{aotimme@stanford.edu} \\
 }
 
 % The \author macro works with any number of authors. There are two commands
@@ -51,13 +51,13 @@ Despite this simplifying assumption, our model is sophisticated enough to allow 
 %i guess we should sorta shape the writeup like a paper, except much more specific on the model and 
 %much shorter on the intro BS
 
-1. a short intro to perceptual multistability? introduce our illusion, etc....
+%1. a short intro to perceptual multistability? introduce our illusion, etc....
 
-2. OUR MODEL - the basic structure, simplifying assumptions
-  question - include only the good gamma-distributed model or both??? which is 'more biologically plausable'?
+%2. OUR MODEL - the basic structure, simplifying assumptions
+%  question - include only the good gamma-distributed model or both??? which is 'more biologically plausable'?
 
-3. our results..... which mostly consist of switching times..... 
-  ALSO, model setting the clues in the illusion by setting certain illusion-type things to be constant...
+%3. our results..... which mostly consist of switching times..... 
+%  ALSO, model setting the clues in the illusion by setting certain illusion-type things to be constant...
 
 
 
@@ -70,7 +70,13 @@ In our project, we aim to model a high-dimensional temporal illusion with 6 stab
 
 \section{Our Model}
 %simplifying the illusion itself, our model, simplifying the featureset, then simplifying the illusion 
-Due to the high complexity of the illusion, a number of simplifying assumptions have to be made in order to construct a computationally tractable model. First, we decided to reduce the number of stable percepts in the illusion to 4 instead of 6, because the mirror images of the double helix and wave forms (see the illusion) are very similar, to the point where they are practically interchangable. They 
+Due to the high complexity of the illusion, a number of simplifying assumptions have to be made in order to construct a computationally tractable model. Before we constructed our model, we decided to reduce the number of stable percepts in the illusion to 4 instead of 6, because the mirror images of the double helix and wave forms (see the illusion) are very similar, to the point where they are practically interchangable. The difference between the helix, wave, horizontal motion, and bouncing dots percepts is much more significant than the difference between the 2 wave and helix configurations. 
+
+Using this simplification, we constructed a 3-layer generative Bayesian network for our model. Each unit in each layer (except the bottom layer) contains directed edges going from that unit to every unit in the layer immediately below it. (figure would be nice) The top layer contains (4? a variable number?) 'percept' units, where each unit can take on a value 1 to 4 that corresponds to a different percept of the illusion. The top layer generates the second layer, which contains intermediate 'high-level feature' units that correspond to different characteristics one might observe. We have five of these units, which correspond to observed dimensionality (2d or 3d), planar rotation, horizontal velocity, correlation between dots in each column, and number of objects in the illusion. Lastly, the bottom layer captures the observed illusion. For the bottom layer, we model the input of the illusion as a single 'illusion unit', which has two values corresponding to whether the illusion is being observed or not. This is a very large but necessary simplification, because modeling configurations of the dots in the illusion would've taken hundreds of variables and a temporal model. Also, our approach is still wholly valid, because we can encode the configurations of high-level features that are likely to be observed in the illusion in the conditional probability distribution of the bottom-layer unit. For example, if a configuration of high-level features are observed that \emph{don't} correspond to any percept of the illusion (say, rotation and 2-dimensionality were observed), the illusion unit has a near-zero probability of being active, whereas if a configuration of high-level features that correspond to one of the percepts is observed, then the illusion unit has a near-one probability of being active.
+
+%possibly add a section on more justification for our model?
+%Our model can be viewed as a cognitive representation of the reception of a visual field. Staying true to the concepts taught in class, our model is a generative model, where each higher level of abstraction generates the lower. The model can be viewed as a small subset of the complete visual system, where we only use levels of abstraction and units that are relevant for modeling the illusion. To model the stimulus of the illusion, we condense all lower layers of abstraction/visual processing into a single unit
+
 
 
 
