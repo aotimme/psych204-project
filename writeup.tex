@@ -74,16 +74,54 @@ Due to the high complexity of the illusion, a number of simplifying assumptions 
 
 Using this simplification, we constructed a 3-layer generative Bayesian network for our model. Each unit in each layer (except the bottom layer) contains directed edges going from that unit to every unit in the layer immediately below it. (figure would be nice) The top layer contains (4? a variable number?) 'percept' units, where each unit can take on a value 1 to 4 that corresponds to a different percept of the illusion. The top layer generates the second layer, which contains intermediate 'high-level feature' units that correspond to different characteristics one might observe. We have five of these units, which correspond to observed dimensionality (2d or 3d), planar rotation, horizontal velocity, correlation between dots in each column, and number of objects in the illusion. Lastly, the bottom layer captures the observed illusion. For the bottom layer, we model the input of the illusion as a single 'illusion unit', which has two values corresponding to whether the illusion is being observed or not. This is a very large but necessary simplification, because modeling configurations of the dots in the illusion would've taken hundreds of variables and a temporal model. Also, our approach is still wholly valid, because we can encode the configurations of high-level features that are likely to be observed in the illusion in the conditional probability distribution of the bottom-layer unit. For example, if a configuration of high-level features are observed that \emph{don't} correspond to any percept of the illusion (say, rotation and 2-dimensionality were observed), the illusion unit has a near-zero probability of being active, whereas if a configuration of high-level features that correspond to one of the percepts is observed, then the illusion unit has a near-one probability of being active.
 
-%possibly add a section on more justification for our model?
-%Our model can be viewed as a cognitive representation of the reception of a visual field. Staying true to the concepts taught in class, our model is a generative model, where each higher level of abstraction generates the lower. The model can be viewed as a small subset of the complete visual system, where we only use levels of abstraction and units that are relevant for modeling the illusion. To model the stimulus of the illusion, we condense all lower layers of abstraction/visual processing into a single unit
+%possibly add a section on more justification for our model? - woooorddddd
+Our model can be viewed as a cognitive representation of the reception of a visual field. Staying true to the concepts taught in class, our model is a generative model, where each higher level of abstraction generates the lower. The model can be viewed as a small subset of the complete visual system, where we only use levels of abstraction and units that are relevant for modeling the illusion. To model the stimulus of the illusion, we condense all lower layers of abstraction/visual processing into a single layer of abstraction that represents all possible visual stimuli, and then only include the one unit that represents the stimuli of the illusion. 
 
+The CPDs of all the variables in the model can be parameterized as follows. Let the second-layer 'high-level feature' units be denoted as $\{D, R, HV, CC, NO\}$, where they are in the same order as their enumeration above. Let the top-level percept units be denoted as $T_1, T_2, T_3, T_4$, the bottom-layer illusion unit as $I$, and finally, let the number of values a unit $U$ can take on be denoted as $|U|$.  
 
+In the illusion, each stable percept corresponds to a unique assignment to the high-level feature units. Let $c_1$ denote this configuration for viewing the illusion as ovals moving horizontally, $c_2$ the configuration for the double helix, $c_3$ for the wave, and $c_4$ for the dots moving up and down. These are defined as:
+
+\begin{eqnarray*}
+c_1 &=& \{D_0,R_0,HV_1,CC_1,NO_1 \} \\
+c_2 &=& \{D_1,R_1,HV_0,CC_1,NO_0 \} \\
+c_3 &=& \{D_1,R_0,HV_0,CC_1,NO_0 \} \\
+c_4 &=& \{D_0,R_0,HV_0,CC_0,NO_2 \} 
+\end{eqnarray*}
+
+The probability distributions for all top level units $T_i$ are simply:
+\begin{eqnarray*}
+P(T_i = 1) &=& 0.35 \\
+P(T_i = 2) &=& 0.35 \\
+P(T_i = 3) &=& 0.2 \\
+P(T_i = 4) &=& 0.1
+\end{eqnarray*}
+
+The probability distributions for all mid-layer units $ML$ is:
+\begin{eqnarray*}
+P(ML = x|T_1,T_2,T_3,T_4) &=& (1-(|ML| -1)*\epsilon) \textrm{   if } T_1=T_2=T_3=T_4=i \textrm{ and } ML_x \in c_i \\
+&=& (\epsilon) \textrm{   if } T_1=T_2=T_3=T_4=i \textrm{ and } ML_x \notin c_i \\
+&=& \frac{1}{|ML|} \textrm{   if } T_i \neq T_j 
+\end{eqnarray*}
+
+In more understandable terms, $P(ML|T_1...T_4)$ is $1-(|ML|-1)\epsilon$ whenever all top-layer units have the same percept $i$ and the assignment to ML is in the corresponding $c_i$, and if the assignment isn't in $c_i$, then the probability of getting it is $\epsilon$. $\epsilon$ can be viewed as a noise term. If the top-layer units aren't the same value, then the value of ML is chosen from the uniform distribution.
+Lastly, the CPD for the bottom unit $I$ is:
+\begin{eqnarray*}
+P(I=1|D,R,HV,CC,NO) &=& (1-\epsilon) \textrm{   if } c_i = \{D,R,HV,CC,NO\} \\
+&=& \epsilon \textrm{   if } c_i \neq \{D,R,HV,CC,NO\}  
+\end{eqnarray*}
 
 
 \section{Results}
-%possibly a section of performance of the model?
+%how we parameterized the CPDs for the intermediate layer
+For all experiments, we used standard Gibbs sampling as our MCMC sampling method, and sampled in order to approximate the posterior $P(M_{-I}|I_1)$, where $I_1$ means the illusion is on and $M_{-I}$ is the whole model sans $I$. Unless otherwise stated, we first sample all variables using forward sampling (and set $I=1$), then use a burn-in time of 10,000 Gibbs samples, and then collect 1,000,000 samples. 
+For the experiments discussed below, we use a noise parameter of $\epsilon = 0.05$ and 4 top-level units $T_i$ unless otherwise stated. \\ 
 
-\subsection{Switching between percepts}
+%FUCK FUCK FUCK stupid fucking shit is hella hard to justify - FMLLLLLLLLL
+%As a sanity check to make sure our model is working, we can use the resulting 1,000,000 samples to quickly calculate $P(T_i = j|I = 1)$.
+
+
+\subsection{Distribution of dominance durations}
+As you can see in the figure below, the 
 
 
 \subsection{Visual Cues}
