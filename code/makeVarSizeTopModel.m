@@ -5,7 +5,7 @@
 %over the mid-feature layer
 
 %make top layer
-epsilon = 0.05
+epsilon = 0.01
 numTopLayer = 4;
 CPDs = [];
 
@@ -40,7 +40,7 @@ ep010 = [epsilon (1-2*epsilon) epsilon];
 Dim.parents = 1:numTopLayer;
 Dim.numVals = 2; %dim =2, dim=3
 Dim.name = 'dimension';
-Dim.probs = makePs(Dim, [ep10 ep01 ep01 ep10]);
+Dim.probs = makePs(Dim, [ep10; ep01; ep01; ep10]);
 CPDs = [CPDs Dim];
 
 %rotation = p(R|class1),p(R|class2)......p(R|class4)
@@ -49,28 +49,28 @@ Rot.parents = 1:numTopLayer;
 Rot.numVals = 3; %0(none) 1 2
 Rot.name = 'rotation';
                         %does the wave have rotation????
-Rot.probs = makePs(Rot, [ep100 ep100 ep011 ep100]);
+Rot.probs = makePs(Rot, [ep100; ep100; ep011; ep100]);
 CPDs = [CPDs Rot];
 
 %horizontal velocity = P(H|class1)...p(H|class4)
 HV.parents = 1:numTopLayer;
 HV.numVals = 2; %0(none) 1(moving horizontally)
 HV.name = 'horizontal velocity';
-HV.probs = makePs(HV, [ep01 ep10 ep10 ep10]); %does the wave have HV?
+HV.probs = makePs(HV, [ep01; ep10; ep10; ep10]); %does the wave have HV?
 CPDs = [CPDs HV];
 
 %column correlation = P(C|class1)...P(C|class4)
 CC.parents = 1:numTopLayer;
 CC.numVals = 2; %no correlation, correlation
 CC.name = 'column correlation';
-CC.probs = makePs(CC, [ep01 ep01 ep01 ep10]);
+CC.probs = makePs(CC, [ep01; ep01; ep01; ep10]);
 CPDs = [CPDs CC];
 
 %number of objects = P(O|class1)....P(O|class4)
 NO.parents = 1:numTopLayer;
 NO.numVals = 3; %1 2(for horizontal) 30(for dots moving up/down)
 NO.name = 'number objects';
-NO.probs = makePs(NO, [ep010 ep100 ep100 ep001]);
+NO.probs = makePs(NO, [ep010; ep100; ep100; ep001]);
 CPDs = [CPDs NO];
 
 %% set the cpd for the bottom variable, WHAT A BITCH %%%%%%

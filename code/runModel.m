@@ -19,11 +19,25 @@ for i=(numTopLayer+1):(length(CPDs)-1)
     state(i) = find(mnrnd(1,Ps));
 end
 
+%set any states you wanna hold constant!!!!!!!! %%%%%%%%%%%%%%%%%%
+% doNotSample = [length(state)]; %the observation that I=1
+doNotSample = [];
+
+% doNotSample = [doNotSample numTopLayer+5]; %NO
+% state(numTopLayer+5) = 2; %NO = 2.5
+% doNotSample = [doNotSample numTopLayer+3]; %HV
+% state(numTopLayer+3) = 1; %HV is on
+
+
+sampleFrom = 1:5+numTopLayer;
+for i = 1:length(doNotSample)
+   sampleFrom(doNotSample(i)) = 0; 
+end
 
 %now, GIBBS SAMPLE OMG!!!!!!!!!!
 numGibbsIters = 1000000;
 burnInTime = 10000;
-percepts = zeros(numTopLayer, numGibbsIters);
+percepts = zeros(length(CPDs)-1, numGibbsIters);
 lastStateSampled = 1;
 
 for g=1:(numGibbsIters + burnInTime)
@@ -33,16 +47,21 @@ for g=1:(numGibbsIters + burnInTime)
     end
     
     %choose a state at random to sample
-    toSample = ceil(rand(1,1)*(length(CPDs)-2));
-    if(toSample >= lastStateSampled) toSample = toSample + 1; end
+    sampleFrom(lastStateSampled) = 0;
+    toSample = 0;
+    while(toSample == 0)
+        toSample = sampleFrom(ceil(rand(1,1)*length(sampleFrom)));
+    end
+    sampleFrom(lastStateSampled) = lastStateSampled;
     
+    %sample!
     Ps = resampleVar(CPDs, state, toSample);
     state(toSample) = find(mnrnd(1,Ps));
         
     
     %wait until after burn in time to take samples
     if(g > burnInTime)
-        percepts(:,g-burnInTime) = state(1:numTopLayer)';
+        percepts(:,g-burnInTime) = state(1:numTopLayer+5)';
     end
     
     lastStateSampled = toSample;
@@ -53,7 +72,7 @@ end
 % show sampling's estimates of probability
 probEstimates = zeros(1,4);
 for i=1:4
-   probEstimates(i) = sum(sum(percepts == i))/(numGibbsIters*numTopLayer); 
+   probEstimates(i) = sum(sum(percepts(1:numTopLayer,:) == i))/(numGibbsIters*numTopLayer); 
 end
 probEstimates
 

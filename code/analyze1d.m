@@ -5,7 +5,7 @@ lastSwitchPos = 1;
 switches = [];
 
 for i=1:(numGibbsIters-1)
-    if(percepts(i) ~= percepts(i+1))
+    if(percepts(1,i) ~= percepts(1,i+1))
        
         lengthThisSwitch = i+1-lastSwitchPos;
         numS = numS + 1;

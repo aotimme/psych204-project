@@ -8,7 +8,7 @@ switches = [];
 %multidimensional stuff
 sumPercepts = zeros(4,numGibbsIters);
 for i=1:4
-   sumPercepts(i,:) = sum(percepts == i,1); 
+   sumPercepts(i,:) = sum(percepts(1:numTopLayer,:) == i,1); 
 end
 
 %the cutoff for saying something is an 'overall' perceptual switch
