@@ -47,10 +47,10 @@ CPDs = [CPDs Dim];
 %rotation = p(R|class1),p(R|class2)......p(R|class4)
 
 Rot.parents = 1:numTopLayer;
-Rot.numVals = 3; %0(none) 1 2
+Rot.numVals = 2; %0(none) 1 2
 Rot.name = 'rotation';
                         %does the wave have rotation????
-Rot.probs = makePs(Rot, [ep100; ep100; ep011; ep100]);
+Rot.probs = makePs(Rot, [ep10; ep01; ep10; ep10]);
 CPDs = [CPDs Rot];
 
 %horizontal velocity = P(H|class1)...p(H|class4)

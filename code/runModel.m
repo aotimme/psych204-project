@@ -24,9 +24,15 @@ end
 doNotSample = [];
 
 doNotSample = [doNotSample numTopLayer+5]; %NO
-state(numTopLayer+5) = 2; %NO = 2.5
-doNotSample = [doNotSample numTopLayer+3]; %HV
-state(numTopLayer+3) = 1; %HV is on
+state(numTopLayer+5) = 3; %NO = 2.5
+% doNotSample = [doNotSample numTopLayer+3]; %HV
+% state(numTopLayer+3) = 2; %HV is on
+% doNotSample = [doNotSample numTopLayer+1]; %D
+% state(numTopLayer+1) = 2; %D = 3
+% doNotSample = [doNotSample numTopLayer+2]; %R
+% state(numTopLayer+2) = 1; %R = on
+doNotSample = [doNotSample numTopLayer+4]; %CC
+state(numTopLayer+4) = 1; %CC = 0
 
 
 sampleFrom = 1:5+numTopLayer;

@@ -41,4 +41,6 @@ for i=1:floor(numGibbsIters^.5)
      sumS(i) = sum(switches==i);
 end
 
+sumS = sumS./(sum(sumS));
+
 plot(sumS(1:100));
