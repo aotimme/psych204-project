@@ -129,11 +129,12 @@ For the experiments discussed below, we use a noise parameter of $\epsilon = 0.0
 As you can see in the figure below, the time to switch between dominant percepts is roughly distributed according to a gamma distribution. We define a 'dominant percept' as anytime 3 or more top-layer percept units are assigned the same percept. It has been thoroughly documented that switching times in humans between different stable percepts tend to follow a Gamma distribution. Our model has similar behavior. This is likely because each top-layer percept unit has switching times roughly distributed along an exponential distribution, and the Gamma distribution is just a sum of exponential distributions. Nonetheless, our model exhibits human-like characteristics, which is a success of our model. \\
 
 %(insert image and small text beneath it...)
-\includegraphics[scale=0.55]{1milGS4TLuniformPrior}
+\includegraphics[scale=0.51]{1milUniformPfinal}
 \small{herro}
 
 
 \subsection{Visual Cues}
+In the illusion, there are certain visual cues you can set that help you see different percepts. For example, the horizontal motion cue displays a dot moving along with each object to cue the viewer into the fact that there are multiple objects moving along at a high horizontal velocity. This provides a unique opportunity to test our model by holding these cues constant and sampling from the new posterior $P(M_{-I-cues}|I=1, cues)$, and then using the resulting samples to approximate $P(T_i|I=1, cues)$. Intuitively, we should expect $P(T_i = j|I=1, cues)$ ,assuming the cues are for percept $j$
 
 
 \section{Discussion}
