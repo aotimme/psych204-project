@@ -11,7 +11,8 @@ CPDs = [];
 
 for i=1:numTopLayer
     
-    P.probs = [0.35 0.35 0.2 0.1];
+%     P.probs = [0.25 0.25 0.25 0.25];
+    P.probs = dirsamp(200,4)';
     P.name = 'class label';
     P.parents = [];
     P.numVals = 4;

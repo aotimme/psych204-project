@@ -1,5 +1,6 @@
 \documentclass{article} % For LaTeX2e
 \usepackage{nips11submit_e,times}
+\usepackage{graphicx}
 %\documentstyle[nips10submit_09,times,art10]{article} % For LaTeX 2.09
 
 
@@ -88,22 +89,26 @@ c_3 &=& \{D_1,R_0,HV_0,CC_1,NO_0 \} \\
 c_4 &=& \{D_0,R_0,HV_0,CC_0,NO_2 \} 
 \end{eqnarray*}
 
-The probability distributions for all top level units $T_i$ are simply:
+The probability distributions for all top level units $T_i$ taking on different percepts is simply distributed according to a multinomial distribution whose parameters are given by a dirichlet distribution with hyper-parameters $\alpha = 200$ (in order to make it give a multinomial distribution close to the uniform distribution) and with a dimension of 4 (because there are 4 possible percepts).
+%:
+%\begin{eqnarray*}
+%P(T_i = j) &=& 0.25 \\
+%\end{eqnarray*}
+
+In order to describe the probability distributions for all mid-layer units $ML$, lets define the following function:
 \begin{eqnarray*}
-P(T_i = 1) &=& 0.35 \\
-P(T_i = 2) &=& 0.35 \\
-P(T_i = 3) &=& 0.2 \\
-P(T_i = 4) &=& 0.1
+\phi(T_i, ML_x) &=& (1-(|ML|-1)*\epsilon) \textrm{  if } T_i = j \textrm{ and } ML_x \in c_j \\
+&=& (\epsilon) \textrm{  if } T_i = j \textrm{ and } ML_x \notin c_j \\
 \end{eqnarray*}
 
-The probability distributions for all mid-layer units $ML$ is:
+Now, we can define:
+
 \begin{eqnarray*}
-P(ML = x|T_1,T_2,T_3,T_4) &=& (1-(|ML| -1)*\epsilon) \textrm{   if } T_1=T_2=T_3=T_4=i \textrm{ and } ML_x \in c_i \\
-&=& (\epsilon) \textrm{   if } T_1=T_2=T_3=T_4=i \textrm{ and } ML_x \notin c_i \\
-&=& \frac{1}{|ML|} \textrm{   if } T_i \neq T_j 
+P(ML = x|T_1,T_2,T_3,T_4) &=& \frac{\sum_{i=1}^4 \phi(T_i, ML_x)}{4} \\
 \end{eqnarray*}
 
-In more understandable terms, $P(ML|T_1...T_4)$ is $1-(|ML|-1)\epsilon$ whenever all top-layer units have the same percept $i$ and the assignment to ML is in the corresponding $c_i$, and if the assignment isn't in $c_i$, then the probability of getting it is $\epsilon$. $\epsilon$ can be viewed as a noise term. If the top-layer units aren't the same value, then the value of ML is chosen from the uniform distribution.
+In more understandable terms, the probability $P(ML_x|T_1...T_4)$ is simply the average of all of the contributions of $T_1...T_4$, where the contribution of $T_i$ is simply $(1-\epsilon)$ if $ML_x$ corresponds to the assigned percept of $T_i$, or $\epsilon$ if not. $\epsilon$ can be viewed as a noise term.
+
 Lastly, the CPD for the bottom unit $I$ is:
 \begin{eqnarray*}
 P(I=1|D,R,HV,CC,NO) &=& (1-\epsilon) \textrm{   if } c_i = \{D,R,HV,CC,NO\} \\
@@ -114,7 +119,7 @@ P(I=1|D,R,HV,CC,NO) &=& (1-\epsilon) \textrm{   if } c_i = \{D,R,HV,CC,NO\} \\
 \section{Results}
 %how we parameterized the CPDs for the intermediate layer
 For all experiments, we used standard Gibbs sampling as our MCMC sampling method, and sampled in order to approximate the posterior $P(M_{-I}|I_1)$, where $I_1$ means the illusion is on and $M_{-I}$ is the whole model sans $I$. Unless otherwise stated, we first sample all variables using forward sampling (and set $I=1$), then use a burn-in time of 10,000 Gibbs samples, and then collect 1,000,000 samples. 
-For the experiments discussed below, we use a noise parameter of $\epsilon = 0.05$ and 4 top-level units $T_i$ unless otherwise stated. \\ 
+For the experiments discussed below, we use a noise parameter of $\epsilon = 0.01$ and 4 top-level units $T_i$ unless otherwise stated. \\ 
 
 %FUCK FUCK FUCK stupid fucking shit is hella hard to justify - FMLLLLLLLLL
 %As a sanity check to make sure our model is working, we can use the resulting 1,000,000 samples to quickly calculate $P(T_i = j|I = 1)$.
@@ -123,7 +128,9 @@ For the experiments discussed below, we use a noise parameter of $\epsilon = 0.0
 \subsection{Distribution of dominance durations}
 As you can see in the figure below, the time to switch between dominant percepts is roughly distributed according to a gamma distribution. We define a 'dominant percept' as anytime 3 or more top-layer percept units are assigned the same percept. It has been thoroughly documented that switching times in humans between different stable percepts tend to follow a Gamma distribution. Our model has similar behavior. This is likely because each top-layer percept unit has switching times roughly distributed along an exponential distribution, and the Gamma distribution is just a sum of exponential distributions. Nonetheless, our model exhibits human-like characteristics, which is a success of our model. \\
 
-(insert image and small text beneath it...)
+%(insert image and small text beneath it...)
+\includegraphics[scale=0.55]{1milGS4TLuniformPrior}
+\small{herro}
 
 
 \subsection{Visual Cues}

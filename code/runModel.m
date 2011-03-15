@@ -23,10 +23,10 @@ end
 % doNotSample = [length(state)]; %the observation that I=1
 doNotSample = [];
 
-% doNotSample = [doNotSample numTopLayer+5]; %NO
-% state(numTopLayer+5) = 2; %NO = 2.5
-% doNotSample = [doNotSample numTopLayer+3]; %HV
-% state(numTopLayer+3) = 1; %HV is on
+doNotSample = [doNotSample numTopLayer+5]; %NO
+state(numTopLayer+5) = 2; %NO = 2.5
+doNotSample = [doNotSample numTopLayer+3]; %HV
+state(numTopLayer+3) = 1; %HV is on
 
 
 sampleFrom = 1:5+numTopLayer;
@@ -35,7 +35,7 @@ for i = 1:length(doNotSample)
 end
 
 %now, GIBBS SAMPLE OMG!!!!!!!!!!
-numGibbsIters = 1000000;
+numGibbsIters = 200000;
 burnInTime = 10000;
 percepts = zeros(length(CPDs)-1, numGibbsIters);
 lastStateSampled = 1;
